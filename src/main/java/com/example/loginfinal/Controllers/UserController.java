@@ -8,27 +8,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody; 
-
 import com.example.loginfinal.Model.User;
-import com.example.loginfinal.Services.CustomUserDetailsService;
 import com.example.loginfinal.Services.UserServices;
 import com.example.loginfinal.jwt.JwtUtil;
-
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.List;
 
 
 @Controller
 public class UserController {
 
-            @Autowired 
-            CustomUserDetailsService customUserDetailsService;
 
             @Autowired 
             AuthenticationManager authenticationManager;
@@ -60,10 +52,10 @@ public class UserController {
                          Cookie jwtCookie = new Cookie("jwt",jwt);
                          jwtCookie.setHttpOnly(true);
                          jwtCookie.setPath("/");
-                         jwtCookie.setMaxAge(3600);
+                         jwtCookie.setMaxAge(300);
                          response.addCookie(jwtCookie);
                         // response.setHeader("Authorization", "Bearer " + jwt);
-                        return "dashboard";
+                        return "redirect:/hello";
                     } else {
                         return "failed: Authentication was unsuccessful.";
                     }
@@ -74,10 +66,10 @@ public class UserController {
             }
             
 
-        // @GetMapping("/dd")
-        // public String dashboard() {
-        //     return "dashboard";
-        // }
+        @GetMapping("/hello")
+        public String dashboard() {
+            return "dashboard";
+        }
 
        
         @GetMapping("/gg")
@@ -123,7 +115,7 @@ public class UserController {
         
 
 
-                        // @PostMapping("/postman")
+            // @PostMapping("/postman")
             // @ResponseBody
             // public String login1(@RequestBody User user, HttpServletResponse response) {
             //     try {

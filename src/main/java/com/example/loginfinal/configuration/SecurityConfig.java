@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.example.loginfinal.Services.CustomUserDetailsService;
 import com.example.loginfinal.jwt.JwtAuthenticationFilter;
 import com.example.loginfinal.jwt.JwtUtil;
@@ -36,13 +35,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->auth
                 .requestMatchers("/login.html", "/register.html", "/register","/login1").permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                     
                              .logout(logout -> logout
                              .logoutUrl("/logout")
                              .logoutSuccessUrl("/login.html")
                              .deleteCookies("jwt")   // Delete the JWT cookie
-                             .invalidateHttpSession(true)  // Invalidate session on logout
                              .clearAuthentication(true)
                              .permitAll())
                              .build();
@@ -54,16 +52,11 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-   //SET1:
-        // @Bean
-        // CustomUserDetailsService customUserDetailsService() {
-        //     return new CustomUserDetailsService();
-        // }
 
-         @Bean
-         public PasswordEncoder passwordEncoder() {
-             return new BCryptPasswordEncoder();
-         }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
 

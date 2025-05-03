@@ -1,12 +1,9 @@
 package com.example.loginfinal.jwt;
 
-
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Date;
@@ -15,7 +12,7 @@ import java.util.Date;
 public class JwtUtil {
 
     private final String SECRET_KEY = "kVauphSootxUy0k0T5NicxJegdgl7xtoU9Tr+emLk1JlSW6Er51zPivCUH4Aht7Zfdtdfchgvhfgdfgddgdgdfsfxdfdfsdfsdfdsf"; // Replace with a strong secret key
-    private final long EXPIRATION_TIME = 1000*60*3; // 1 day in milliseconds
+    private final long EXPIRATION_TIME = 1000*30; //time in milliseconds
 
     private Key getSigningKey() {
         byte[] keyBytes = SECRET_KEY.getBytes();
