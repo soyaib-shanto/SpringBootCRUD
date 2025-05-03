@@ -1,8 +1,10 @@
 package com.example.loginfinal.Services;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import com.example.loginfinal.Model.ImpUserDetails;
 import com.example.loginfinal.Model.User;
 import com.example.loginfinal.Repositary.UserRepository;
@@ -21,7 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
          User user = userRepository.findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + name));
 
-              
         return new ImpUserDetails(user);
   }
 }
